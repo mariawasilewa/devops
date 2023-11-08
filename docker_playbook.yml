@@ -1,0 +1,14 @@
+---
+- name: Deploy Docker Container for Web Aapp Application
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Run Docker container
+      docker_container:
+        name: web_app_container  # Updated container name
+        image: "mariavasileva/my-nginx-image:latest"
+        state: started
+        ports:
+          - "80:80"
+        env:
+          PORT: "80"
