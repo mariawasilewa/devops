@@ -1,0 +1,15 @@
+name: Feature Branch Pipeline
+on:
+ push:
+ branches: 
+ - 'feature/*'
+
+jobs:
+ editorconfig-check:
+ runs-on: ubuntu-latest
+
+ steps: 
+  - name: Checkout repository
+    uses: actions/checkout@v2
+
+  - name: Check .editorconfig  
