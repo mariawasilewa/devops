@@ -19,6 +19,9 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+        
+      - name: Change to GitHubActions-Class directory
+        run: cd devops/GitHubActions-Class
 
       - name: Check .editorconfig
         run: |
