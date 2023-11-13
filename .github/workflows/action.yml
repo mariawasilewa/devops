@@ -34,5 +34,5 @@ jobs:
 
       - name: Code Lint and Style Check
         run: |
-          pylint app/app.py
-          black --check app/app.py
+            pylint app/app.py
+            black --check app/app.py
