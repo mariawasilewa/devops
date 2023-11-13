@@ -1,0 +1,23 @@
+name: Check .editorconfig
+
+on:
+  push:
+    branches:
+      - 'feature/*'
+
+jobs:
+  editorconfig-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Check .editorconfig
+        run: |
+          if [ -f .editorconfig ]; then
+            echo "Found .editorconfig file."
+          else
+            echo "ERROR: .editorconfig file not found."
+            exit 1
+          fi
