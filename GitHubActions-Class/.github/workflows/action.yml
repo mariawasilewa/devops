@@ -1,51 +1,25 @@
-name: Check
 
-on:
-  push:
-    branches:
-      - 'feature/*'
+name: Run Tests in Subdirectory
+ 
+on: [push, pull_request]
 
 jobs:
-  editorconfig:
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Install dependencies and run action
-        run: |
-          cd devops/GitHubActions-Class
-          ./devops/GitHubActions-Class/.github/workflows/action.yml
-        working-directory: devops/GitHubActions-Class
-
-      - uses: editorconfig-checker/action-editorconfig-checker@main
-      - run: editorconfig-checker
-
-  lint:
+  build:
+    name: Run tests
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Check .editorconfig
-        run: |
-          if [ -f .editorconfig ]; then
-            echo "Found .editorconfig file."
-          else
-            echo "ERROR: .editorconfig file not found."
-            exit 1
-          fi
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install Flask pylint black
-
-      - name: Code Lint and Style Check
-        run: |
-          pylint app/app.py
-          black --check app/app.py
+        - name: Check out repository code
+          uses: actions/checkout@v2
+      
+        # - name: Use Node.js
+        #   uses: actions/setup-node@v2
+        #   with:
+        #     node-version: 16
+      
+        # - name: Install dependencies
+        #   run: npm ci
+        #   working-directory: ./subdirectory
+      
+        - name: Run tests
+          run: npm test
+          working-directory: ./GitHubActions-Class
