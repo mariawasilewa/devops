@@ -1,22 +1,35 @@
-name: Check .editorconfig
+name: Checks
 
 on:
   push:
     branches:
       - '*'
-jobs:
-  editorconfig-check:
-    runs-on: ubuntu-latest
 
+jobs:
+  editorconfig:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: editorconfig-checker/action-editorconfig-checker@main
+      - run: editorconfig-checker
+
+  lint:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Check .editorconfig
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
         run: |
-          if [ -f .editorconfig ]; then
-            echo "Found .editorconfig file."
-          else
-            echo "ERROR: .editorconfig file not found."
-            exit 1
-          fi
+          python -m pip install --upgrade pip
+          pip install Flask pylint black
+
+      - name: Code Lint and Style Check
+        run: |
+          pylint app/app.py
+          black --check app/app.py
