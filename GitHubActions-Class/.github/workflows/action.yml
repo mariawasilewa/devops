@@ -1,25 +1,20 @@
+name: Run Subfolder Workflow
 
-name: Run Tests in Subdirectory
- 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - 'feature/*'
 
 jobs:
-  build:
-    name: Run tests
+  run-subfolder-workflow:
     runs-on: ubuntu-latest
+
     steps:
-        - name: Check out repository code
-          uses: actions/checkout@v2
-      
-        # - name: Use Node.js
-        #   uses: actions/setup-node@v2
-        #   with:
-        #     node-version: 16
-      
-        # - name: Install dependencies
-        #   run: npm ci
-        #   working-directory: ./subdirectory
-      
-        - name: Run tests
-          run: npm test
-          working-directory: ./GitHubActions-Class
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Run Subfolder Workflow
+        run: |
+          cd devops/GitHubActions-Class
+          # Run the actions.yml or any script from the subfolder
+          sh .github/workflows/actions.yml
