@@ -10,7 +10,13 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - uses: ./devops/GitHubActions-Class/.github/workflows/action.yml
+
+      - name: Install dependencies and run action
+        run: |
+          cd devops/GitHubActions-Class
+          ./devops/GitHubActions-Class/.github/workflows/action.yml
+        working-directory: devops/GitHubActions-Class
+
       - uses: editorconfig-checker/action-editorconfig-checker@main
       - run: editorconfig-checker
 
