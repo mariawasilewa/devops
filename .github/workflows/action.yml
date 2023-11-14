@@ -3,8 +3,7 @@ name: Check .editorconfig
 on:
   push:
     branches:
-      - 'feature/*'
-
+      - '*'
 jobs:
   editorconfig-check:
     runs-on: ubuntu-latest
