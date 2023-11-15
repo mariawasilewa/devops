@@ -68,4 +68,4 @@ jobs:
               pip install Flask  # Add other dependencies if needed for your tests
       
       - name: Run Unit Tests
-        run: python -m unittest discover -s GitHubActions-Class/tests -p '*_test.py'  
+        run: python -m unittest discover -s GitHubActions-Class/app -p '*_test.py'  
