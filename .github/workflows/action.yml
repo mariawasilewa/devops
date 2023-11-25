@@ -92,6 +92,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_PROJECT_KEY: "mariawasilewa-devops"  # Replace with your actual project key
+          SONAR_PROJECT_KEY: "mariawasilewa"  # Replace with your actual project key
           SONAR_ORGANIZATION: "mariawasilewa"  # Replace with your actual organization key
 
