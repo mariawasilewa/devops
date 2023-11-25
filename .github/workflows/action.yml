@@ -101,21 +101,18 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
-          python-version: 3.8
+          node-version: '14'  # Use a version that is supported by Snyk
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install snyk  # Install Snyk CLI
+      - name: Install Snyk
+        run: npm install -g snyk
 
       - name: Snyk test
         run: snyk test --file=requirements.txt
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        working-directory: app
 
 
 
