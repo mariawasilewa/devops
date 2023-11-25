@@ -104,7 +104,8 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.10
+          python-version: 3.10.13  # Specify the exact version
+          architecture: x64  # Specify the architecture
 
       - name: Install dependencies
         run: pip install -r requirements.txt
@@ -121,6 +122,3 @@ jobs:
         run: snyk test --file=requirements.txt --skip-unresolved
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
-
-
