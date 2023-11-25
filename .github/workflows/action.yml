@@ -87,7 +87,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up SonarCloud
-        uses: sonarsource/sonarcloud-github-action@latest
+        uses: sonarsource/sonarcloud-github-action@v2.11.0
         with:
           organization: "mariawasilewa"
           token: ${{ secrets.SONARCLOUD_TOKEN }}
