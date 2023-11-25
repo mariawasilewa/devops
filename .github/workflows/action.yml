@@ -118,13 +118,12 @@ jobs:
       - name: Install Snyk
         run: npm install -g snyk
 
+      - name: Install Python
+        run: |
+          sudo apt-get update
+          sudo apt-get install python3
+
       - name: Snyk test
         run: snyk test --file=requirements.txt --skip-unresolved
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
-      - name: Snyk fix
-        run: snyk fix --file=requirements.txt
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
