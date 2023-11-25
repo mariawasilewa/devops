@@ -73,6 +73,8 @@ jobs:
   gitleaks:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
       - name: Check for hardcoded secrets
         uses: gitleaks/gitleaks-action@v2
         with:
