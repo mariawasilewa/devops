@@ -98,11 +98,13 @@ jobs:
   snyk-security-scan:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Snyk Security Scan
-        uses: snyk/actions/node@master
+      - uses: actions/checkout@master
+      - uses: snyk/actions/setup@master
+      - uses: actions/setup-go@v1
         with:
-          token: ${{ secrets.SNYK_TOKEN }}
-          project-path: ./app
+          go-version: "1.13"
+      - name: Snyk test
+        run: snyk test
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
