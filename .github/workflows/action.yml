@@ -83,20 +83,13 @@ jobs:
   sonarcloud:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Set up SonarCloud
-        uses: sonarsource/sonarcloud-github-action@master
+      - uses: actions/checkout@v3
         with:
-          organization: "mariawasilewa"
-          token: ${{ secrets.SONARCLOUD_TOKEN }}
-          projectKey: "mariawasilewa_devops"
-
-      - name: Build and Analyze
-        run: |
-          # Your build commands here (e.g., compile, build, etc.)
-          # Example for a Python project:
-          python -m pip install -r requirements.txt
-          sonar-scanner
+          # Disabling shallow clone is recommended for improving relevancy of reporting
+          fetch-depth: 0
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
