@@ -1,8 +1,8 @@
 FROM ubuntu:22.04
 
 RUN apt-get update \
-    && apt-get install python3 python3-pip -y \
-    && mkdir /app
+	&& apt-get install python3 python3-pip -y \
+	&& mkdir /app
 
 WORKDIR /app
 COPY app /app
