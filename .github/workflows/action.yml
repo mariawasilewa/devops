@@ -104,8 +104,8 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.10.13  # Specify the exact version
-          architecture: x64  # Specify the architecture
+          python-version: 3.10.13
+          architecture: x64
 
       - name: Install dependencies
         run: pip install -r requirements.txt
@@ -113,7 +113,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '14'  # Use a version that is supported by Snyk
+          node-version: '14'
 
       - name: Install Snyk
         run: npm install -g snyk
