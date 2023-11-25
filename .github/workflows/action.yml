@@ -80,4 +80,23 @@ jobs:
         with:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  sonarcloud:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up SonarCloud
+        uses: sonarsource/sonarcloud-github-action@v1
+        with:
+          organization: "mariawasilewa"
+          token: ${{ secrets.SONARCLOUD_TOKEN }}
+          projectKey: "mariawasilewa_devops"
+
+      - name: Build and Analyze
+        run: |
+          # Your build commands here (e.g., compile, build, etc.)
+          # Example for a Python project:
+          python -m pip install -r requirements.txt
+          sonar-scanner
 
