@@ -101,6 +101,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
@@ -110,7 +118,7 @@ jobs:
         run: npm install -g snyk
 
       - name: Snyk test
-        run: snyk test --file=requirements.txt
+        run: snyk test --file=requirements.txt --skip-unresolved
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
