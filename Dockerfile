@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:mantic-20231011
 
 RUN apt-get update \
 	&& apt-get install python3 python3-pip -y \
