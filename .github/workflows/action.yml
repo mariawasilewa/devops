@@ -102,7 +102,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Snyk Security Scan
-        uses: snyk/actions/node@v4
+        uses: snyk/actions/node@master
         with:
           token: ${{ secrets.SNYK_TOKEN }}
           project-path: ./app
