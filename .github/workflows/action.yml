@@ -101,10 +101,30 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - uses: actions/checkout@master
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master
-        continue-on-error: true
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.10.13
+          architecture: x64
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '14'
+
+      - name: Install Snyk
+        run: npm install -g snyk
+
+      - name: Install Python
+        run: |
+          sudo apt-get update
+          sudo apt-get install python3
+
+      - name: Snyk test
+        run: snyk test --file=requirements.txt --skip-unresolved || true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
