@@ -1,16 +1,18 @@
-FROM ubuntu:mantic-20231011
-
-RUN apt-get update \
-	&& apt-get install python3 python3-pip -y \
-	&& mkdir /app
+# Use an official Ubuntu runtime as a parent image
+FROM ubuntu:20.04
 
 WORKDIR /app
-COPY app /app
-COPY requirements.txt /app/requirements.txt
 
-RUN pip install -r requirements.txt
+RUN apt-get update && apt-get install -y python3 python3-pip
 
-ENV FLASK_ENV=DEVELOPMENT
-ENV FLASK_RUN_HOST=0.0.0.0
-EXPOSE 5001
-CMD ["python3", "/app/app.py"]
+COPY . /app
+
+RUN pip3 install -r requirements.txt
+
+RUN export GIT_COMMIT=$(git rev-parse --short HEAD)
+
+EXPOSE 80
+
+ENV FLASK_ENV=development
+
+CMD ["python3", "app/app.py"]
