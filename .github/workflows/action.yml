@@ -124,14 +124,7 @@ jobs:
           sudo apt-get install python3
 
       - name: Snyk test
-        run: |
-          SNYK_OUTPUT=$(snyk test --file=requirements.txt --skip-unresolved)
-          echo "$SNYK_OUTPUT"
-          if echo "$SNYK_OUTPUT" | grep -iq "low"; then
-            echo "Low vulnerabilities found."
-          else
-            echo "No low vulnerabilities found."
-          fi
+        run: snyk test --file=requirements.txt --skip-unresolved
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
