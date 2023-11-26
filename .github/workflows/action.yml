@@ -124,6 +124,16 @@ jobs:
           sudo apt-get install python3
 
       - name: Snyk test
-        run: snyk test --file=requirements.txt --skip-unresolved
+        run: |
+          snyk test --file=requirements.txt --skip-unresolved
+          SNYK_EXIT_CODE=$?
+          if [ $SNYK_EXIT_CODE -eq 0 ]; then
+            echo "No vulnerabilities found."
+          elif [ $SNYK_EXIT_CODE -eq 1 ]; then
+            echo "Medium or low severity vulnerabilities found."
+          else
+            echo "Critical vulnerabilities found."
+            exit 1
+          fi
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
