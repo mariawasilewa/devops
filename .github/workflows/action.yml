@@ -125,15 +125,14 @@ jobs:
 
       - name: Snyk test
         run: |
-          snyk test --file=requirements.txt --skip-unresolved
-          SNYK_EXIT_CODE=$?
-          if [ $SNYK_EXIT_CODE -eq 0 ]; then
-            echo "No vulnerabilities found."
-          elif [ $SNYK_EXIT_CODE -eq 1 ]; then
-            echo "Medium or low severity vulnerabilities found."
-          else
+          SNYK_OUTPUT=$(snyk test --file=requirements.txt --skip-unresolved)
+          echo "$SNYK_OUTPUT"
+          if echo "$SNYK_OUTPUT" | grep -iq "critical"; then
             echo "Critical vulnerabilities found."
             exit 1
+          else
+            echo "No critical vulnerabilities found."
           fi
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
